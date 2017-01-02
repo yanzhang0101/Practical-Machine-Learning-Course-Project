@@ -18,7 +18,7 @@ In this analysis we used Weight Lifting Exercise Dataset to develop predictive m
 
 The pml-training data set was further partitioned into training and validation, and the training set was used to develop the model while the validation set was used to evaluate the resulting model.
 
-The final model was 
+The final model was a random forrest model with out of sample accuracy of 99.7% on the validation set.
 
 ## Explorative Analysis
 
@@ -39,7 +39,7 @@ validation = dat[-inTrain,]
 
 ### Exploratory analysis on the Training data set
 
-```{r echo=FALSE}
+```{r echo=TRUE}
 NaR <- rowSums(is.na(training))
 NaR.1 <- NaR>90
 NaR.2 <- NaR<=90
