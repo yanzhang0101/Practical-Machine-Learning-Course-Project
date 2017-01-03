@@ -134,7 +134,14 @@ $(document).ready(function () {
 <p>Initial explorative analysis indicates that a large number of the variables has mostly NA values (13464 out of 13737 observations), hence these columns will provide minimum information. We produced a reduced data set (training2) with those columns removed, and examed the output variable to verify that the 13464 observations are not significantly differnt from the overall training set.</p>
 <div id="read-the-data-and-pre-process-nas-then-partition-the-data-into-training-and-testing-sets" class="section level3">
 <h3>Read the data and pre-process NA’s, then partition the data into training and testing sets</h3>
+<pre class="r"><code>library(caret)</code></pre>
 <pre><code>## Loading required package: lattice</code></pre>
+<pre class="r"><code>dat = read.csv(&quot;pml-training.csv&quot;, header = T, na.strings = c(&quot;&quot;, &quot; &quot;, &quot;NA&quot;, &quot;#DIV/0!&quot;))
+set.seed(12345)
+inTrain = createDataPartition(dat$classe, p=0.7, list = FALSE)
+
+training = dat[ inTrain,]
+validation = dat[-inTrain,]</code></pre>
 </div>
 <div id="exploratory-analysis-on-the-training-data-set" class="section level3">
 <h3>Exploratory analysis on the Training data set</h3>
@@ -150,7 +157,15 @@ plot(training[NaR.2,]$classe, main = &quot;Osbservations without NA's&quot;)</co
 </div>
 <div id="produce-reduced-columns-data-set-by-removing-the-unique-id-x-and-the-columns-that-have-over-95-of-volume-as-na" class="section level3">
 <h3>Produce reduced (columns) data set by removing the unique id “X” and the columns that have over 95% of volume as “NA”</h3>
+<pre class="r"><code>NaC &lt;- colSums(is.na(training))
+NaC.keep &lt;- NaC&lt;13000
+NaC.keep[1] &lt;- FALSE
+NaC.keep[3:5] &lt;- FALSE
+
+training2 &lt;- training[, NaC.keep]
+dim(training2)</code></pre>
 <pre><code>## [1] 13737    56</code></pre>
+<pre class="r"><code>dim(training)</code></pre>
 <pre><code>## [1] 13737   160</code></pre>
 </div>
 </div>

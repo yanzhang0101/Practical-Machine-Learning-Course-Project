@@ -25,7 +25,7 @@ The final model was a random forrest model with out of sample accuracy of 99.7% 
 Initial explorative analysis indicates that a large number of the variables has mostly NA values (13464 out of 13737 observations), hence these columns will provide minimum information. We produced a reduced data set (training2) with those columns removed, and examed the output variable to verify that the 13464 observations are not significantly differnt from the overall training set.
 
 ### Read the data and pre-process NA's, then partition the data into training and testing sets
-```{r echo=FALSE}
+```{r echo=TRUE}
 library(caret)
 
 dat = read.csv("pml-training.csv", header = T, na.strings = c("", " ", "NA", "#DIV/0!"))
@@ -53,7 +53,7 @@ plot(training[NaR.2,]$classe, main = "Osbservations without NA's")
 
 ### Produce reduced (columns) data set by removing the unique id "X" and the columns that have over 95% of volume as "NA"
 
-```{r echo=FALSE}
+```{r echo=TRUE}
 NaC <- colSums(is.na(training))
 NaC.keep <- NaC<13000
 NaC.keep[1] <- FALSE
